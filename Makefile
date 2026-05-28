@@ -63,34 +63,23 @@ web:
 	@echo "Starting web server on http://localhost:8000..."
 	@$(PYTHON) server.py
 
-DOCKER_IMAGE := repomix-manager
-DOCKER_CONTAINER := repomix-manager-instance
+DOCKER_IMAGE := repomix-maker
+DOCKER_CONTAINER := repomix-maker-instance
 
 docker-build:
-	@echo "Building Docker image $(DOCKER_IMAGE)..."
-	@docker build -t $(DOCKER_IMAGE) .
+	@echo "Building Docker image with docker-compose..."
+	@docker compose build
 
 docker-run:
-	@echo "Running $(DOCKER_IMAGE) in container..."
-	@docker run -d \
-		--name $(DOCKER_CONTAINER) \
-		-p 8000:8000 \
-		-v $$(pwd)/projects:/app/projects \
-		-v $$(pwd)/repos:/app/repos \
-		-v $$(pwd)/archive:/app/archive \
-		-v $$(pwd)/server.py:/app/server.py \
-		-v $$(pwd)/manage_projects.py:/app/manage_projects.py \
-		-v $$(pwd)/web:/app/web \
-		-v $$HOME/.ssh:/root/.ssh:ro \
-		$(DOCKER_IMAGE)
-	@echo "Web interface is now running at http://localhost:8000"
+	@echo "Running container with docker-compose..."
+	@docker compose up -d
+	@echo "Web interface is now running at http://localhost:8052"
 
 docker-stop:
-	@echo "Stopping and removing container $(DOCKER_CONTAINER)..."
-	@docker stop $(DOCKER_CONTAINER) || true
-	@docker rm $(DOCKER_CONTAINER) || true
+	@echo "Stopping and removing container with docker-compose..."
+	@docker compose down
 
 docker-logs:
-	@docker logs -f $(DOCKER_CONTAINER)
+	@docker compose logs -f
 
 docker-restart: docker-stop docker-build docker-run

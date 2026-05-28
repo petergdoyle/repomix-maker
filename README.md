@@ -45,10 +45,10 @@ Zips the project config and outputs into the `archive/` folder and removes it fr
 This repository includes a sample project configuration for itself! You can run it to see how the tool works immediately:
 
 ```bash
-make build NAME=repomix-project-manager
+make build NAME=repomix-maker
 ```
 
-This will clone this repository into `repos/repomix-project-manager` and generate a packed markdown file in `projects/repomix-project-manager/outputs/repomix-output.md`. This is a great way to test new features or verify your setup.
+This will clone this repository into `repos/repomix-maker` and generate a packed markdown file in `projects/repomix-maker/outputs/repomix-output.md`. This is a great way to test new features or verify your setup.
 
 ## Web Interface
 You can also manage your projects through a modern web dashboard:

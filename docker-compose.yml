@@ -1,0 +1,16 @@
+services:
+  repomix-maker:
+    build: .
+    image: repomix-maker
+    container_name: repomix-maker-instance
+    ports:
+      - "8052:8000"
+    volumes:
+      - ./projects:/app/projects
+      - ./repos:/app/repos
+      - ./archive:/app/archive
+      - ./server.py:/app/server.py
+      - ./manage_projects.py:/app/manage_projects.py
+      - ./web:/app/web
+      - ~/.ssh:/root/.ssh:ro
+    restart: unless-stopped
